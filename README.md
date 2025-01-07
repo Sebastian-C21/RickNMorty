@@ -1,2 +1,2 @@
 # RickNMorty
- This repo host the technical interview for Blossom FullStack Engineer Role
+ This repo hosts the technical interview for the Blossom FullStack Engineer Role
