@@ -12,7 +12,7 @@ import HomeScreen from './screens/home';
 import DetailScreen from './screens/details';
 
 const Stack = createNativeStackNavigator();
-const LOCAL_IP_ADDRESS = '192.168.1.4' //Emulating: android studio
+const LOCAL_IP_ADDRESS = 'your ipv4 address' //Emulating: android studio
 
 export const client = new ApolloClient({
   uri: `http://${LOCAL_IP_ADDRESS}:4000/`,
