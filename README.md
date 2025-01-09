@@ -61,17 +61,19 @@ Ensure you have the following installed on your machine:
 
 ### **Troubleshooting**
 Common Issues:
-Metro Bundler not connecting to the emulator:
+1. Metro Bundler not connecting to the emulator:
   Ensure the emulator is running before starting the frontend.
-Try restarting the Metro Bundler:
-  npm start --reset-cache
-Your local enpoint might not query correctly due to IP address
-  Emulating on Android Studio might require you to use your IPv4 address, you can rearch this on your cmd typing "ipconfig", update this variable on App.tsx file or create your .env to store local variables
-Emulator not loading the app:
 
+2. Try restarting the Metro Bundler:
+  npm start --reset-cache
+
+3. Your local enpoint might not query correctly due to IP address
+  Emulating on Android Studio might require you to use your IPv4 address, you can rearch this on your cmd typing "ipconfig", update this variable on App.tsx file or create your .env to store local variables
+
+4. Emulator not loading the app:
 Verify that adb recognizes the emulator:
-  adb devices, If no device is listed, restart the emulator and reconnect.
-Dependencies not installed:
+  adb devices, ff no device is listed, restart the emulator and reconnect.
+5. Dependencies not installed:
   Ensure you have run npm install in both frontend and backend directories.
 
 ### **Key Highlights**
