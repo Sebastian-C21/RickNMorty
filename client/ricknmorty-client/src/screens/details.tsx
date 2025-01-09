@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Character } from "../types";
-import { useApolloClient, gql } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import Popup from "../components/popup";
-import { getCachedData, updateComment } from "../services/cacheService";
+import { getCachedData, updateComment, deleteCard } from "../services/cacheService";
+import { ADD_COMMENT, DELETE_CARD } from "../services/queries";
 
 const CharacterDetails = ({ route }:any) => {
   // Apollo hook to query the cache
@@ -17,6 +18,16 @@ const CharacterDetails = ({ route }:any) => {
   const [isPopupVisible, setPopupVisible] = useState(false);
 
   const [newComments, setComments] = useState("");
+
+  // Perform mutations
+  const [addComment, {  }] = useMutation(ADD_COMMENT, {
+    onCompleted: (data) => {console.log(data)},
+  });
+  
+  const [deleteCharacter, {  }] = useMutation(DELETE_CARD, {
+    onCompleted: (data) => {console.log(data)},
+  });
+
 
   // Fetch the data if not updatet (comment)
   useEffect(()=>{
@@ -31,12 +42,14 @@ const CharacterDetails = ({ route }:any) => {
   // handle comment update on cache data (visualization)
   const handleCreateComment = (comment: any) => {
     setComments(comment);
+    addComment({ variables: { "addCommentId": id, "comments": comment } }); 
     updateComment(client,id,comment)
   };
-
+  
   // deletes a card by changing attribute value
-  const deleteCard = ()=>{
-    console.log('mm')
+  const deleteCardFront = ()=>{
+    addComment({ variables: { "deleteCharacterId": id } }); 
+    deleteCard(client,id)
   }
 
   return (
@@ -112,7 +125,7 @@ const CharacterDetails = ({ route }:any) => {
           <Text className="text-center text-white font-bold">Create comment</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={deleteCard}
+          onPress={deleteCardFront}
           className="bg-purple-750 py-3 px-2 mx-1 rounded-lg flex-1"
         >
           <Text className="text-center text-white font-bold">Delete</Text>

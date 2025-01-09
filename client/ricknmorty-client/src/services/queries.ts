@@ -48,3 +48,54 @@ export const SEARCH_CHARACTERS = gql`
     }
   }
 `;
+
+// GraphQL mutation to perform changes
+export const STAR_CHARACTER = gql`
+  mutation StarCharacter($starCharacterId: Int!) {
+  starCharacter(id: $starCharacterId) {
+    id
+    name
+    status
+    species
+    gender
+    image
+    deleted
+    starred
+    comments
+  }
+}
+`;
+
+// GraphQL mutation to add a comment
+export const ADD_COMMENT = gql`
+  mutation Mutation($addCommentId: Int!, $comments: String!) {
+  addComment(id: $addCommentId, comments: $comments) {
+    id
+    name
+    status
+    species
+    gender
+    image
+    deleted
+    starred
+    comments
+  }
+}
+`;
+
+// GraphQL mutation to add a comment
+export const DELETE_CARD = gql`
+  mutation DeleteCharacter($deleteCharacterId: Int!) {
+  deleteCharacter(id: $deleteCharacterId) {
+    id
+    name
+    status
+    species
+    gender
+    image
+    deleted
+    starred
+    comments
+  }
+}
+`;

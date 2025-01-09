@@ -4,11 +4,10 @@ import Card from "../components/card";
 import SearchBar from "../components/searchBar";
 import FilterBar from "../components/fliterBar";
 
-import { SafeAreaView } from "react-native-safe-area-context";
-import { gql, useApolloClient } from "@apollo/client";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
 import { Character } from "../types";
 import { getCachedData, updateStarred, addCharacterToCache} from "../services/cacheService";
-
+import { STAR_CHARACTER } from "../services/queries";
 
 
 const HomeScreen = () => {
@@ -27,17 +26,24 @@ const HomeScreen = () => {
 
   const [showFilterBar, setShowFilterBar] = useState(false);
 
+  // Perform mutations
+  const [performStarring, { called, loading, data }] = useMutation(STAR_CHARACTER, {
+        onCompleted: (data) => {console.log(data)},
+    });
+
   // fetch current data stored with apollo client cache
   useEffect(() => {
     setCharacters(getCachedData(client))
     console.log(getCachedData(client))
   }, []);
+  const availableCharacters = characters?.filter((char)=> !char.deleted)
 
   // Split characters into starred and non-starred groups
-  const starredCharacters = characters?.filter((char) => char.starred);
-  const nonStarredCharacters = characters?.filter((char) => !char.starred);
+  const starredCharacters = availableCharacters?.filter((char) => char.starred);
+  const nonStarredCharacters = availableCharacters?.filter((char) => !char.starred);
 
   const toggleStar = (id:number,starred:boolean) => {
+    performStarring({ variables: { "starCharacterId": !starred } }); 
     updateStarred(client,id,!starred)
     setCharacters((prev) =>
       prev.map((char) =>

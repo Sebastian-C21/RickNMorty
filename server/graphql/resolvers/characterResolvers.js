@@ -228,7 +228,8 @@ const characterResolvers = {
 
       // Perform case-insensitive filtering by name
       return characters.filter((character) =>
-        character.name.toLowerCase().includes(name.toLowerCase())
+        character.name.toLowerCase().includes(name.toLowerCase()) &&
+        character.deleted === false
       );
     },
 

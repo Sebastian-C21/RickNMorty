@@ -106,3 +106,32 @@ export const updateComment = (client:any,id:number,comment:string) => {
       },
     });
   };
+
+// Function to update the 'comment' property of a character in the cache
+export const deleteCard = (client:any,id:number) => {
+    client.cache.modify({
+      fields: {
+        characters(existingCharacters = [], { readField }:any) {
+          return existingCharacters.map((characterRef:any) => {
+            if (readField("id", characterRef) === id) {
+              client.cache.writeFragment({
+                id: `Character:${readField("id", characterRef)}`,
+                fragment: gql`
+                  fragment UpdateDelete on Character {
+                    id
+                    deleted
+                  }
+                `,
+                data: {
+                  id: id,
+                  deleted: true, 
+                },
+              });
+              return characterRef;
+            }
+            return characterRef;
+          });
+        },
+      },
+    });
+  };
