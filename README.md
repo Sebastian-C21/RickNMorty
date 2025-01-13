@@ -1,5 +1,5 @@
 # RickNMorty
-This repo hosts the technical interview for the Blossom FullStack Engineer Role
+This repo hosts a mobile app that consumes a custom api of Rick and Morty characters
 The project uploaded was tested on Android Studio with the following specifications
 npm: z10.2.4
 java_sdk: jv-17
